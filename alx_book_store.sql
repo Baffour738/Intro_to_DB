@@ -1,36 +1,47 @@
--- CREATE DATABASE
-CREATE DATABASE ALX_BOOK_STORE;
+-- create database
+CREATE DATABASE alx_book_store;
 
--- USE DATABASE
-USE ALX_BOOK_STORE;
+-- select database
+USE alx_book_store;
 
--- AUTHORS TABLE
-CREATE TABLE AUTHORS (
-    AUTHOR_ID INT PRIMARY KEY AUTO_INCREMENT,
-    AUTHOR_NAME VARCHAR(215) NOT NULL
+-- authors table
+CREATE TABLE Authors (
+    author_id INT PRIMARY KEY AUTO_INCREMENT,
+    author_name VARCHAR(215) NOT NULL
 );
 
--- BOOKS TABLE
-CREATE TABLE BOOKS (
-    BOOK_ID INT PRIMARY KEY AUTO_INCREMENT,
-    TITLE VARCHAR(130) NOT NULL,
-    AUTHOR_ID INT,
-    PRICE DOUBLE,
-    PUBLICATION_DATE DATE,
-    FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHORS(AUTHOR_ID)
+-- books table
+CREATE TABLE Books (
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(130) NOT NULL,
+    author_id INT,
+    price DOUBLE,
+    publication_date DATE,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- CUSTOMERS TABLE
-CREATE TABLE CUSTOMERS (
-    CUSTOMER_ID INT PRIMARY KEY AUTO_INCREMENT,
-    CUSTOMER_NAME VARCHAR(215) NOT NULL,
-    EMAIL VARCHAR(215),
-    ADDRESS TEXT
+-- customers table
+CREATE TABLE Customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215),
+    address TEXT
 );
 
--- ORDERS TABLE
-CREATE TABLE ORDERS (
-    ORDER_ID INT PRIMARY KEY AUTO_INCREMENT,
-    CUSTOMER_ID INT,
-    ORDER_DATE DATE,
-    FOREIGN
+-- orders table
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+-- order_details table
+CREATE TABLE Order_Details (
+    orderdetailid INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,
+    book_id INT,
+    quantity DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
